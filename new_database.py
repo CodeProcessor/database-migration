@@ -1,9 +1,5 @@
-from datetime import datetime
-from zoneinfo import ZoneInfo
+from sqlalchemy import DATETIME, NVARCHAR, Column, Float, Integer
 
-from sqlalchemy import DATETIME, NVARCHAR, Column, Float, Integer, UnicodeText
-
-# from sqlalchemy.dialects.mssql import DATETIMEOFFSET
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
@@ -20,4 +16,5 @@ class Student(Base):
     email = Column(NVARCHAR(100), unique=True)
     date_of_birth = Column(DATETIME, nullable=False)
     grade_level = Column(Integer(), nullable=False)
-    gpa = Column(Float(), default=0.0)
+    # gpa = Column(Float(), default=0.0)
+    marks = Column(Float(), default=0.0)
