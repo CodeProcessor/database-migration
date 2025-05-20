@@ -1,5 +1,5 @@
-# database-migration
-
+# Database Migration with Alembic
+ 
 This project demonstrates how to export an existing database schema to Alembic migrations and manage database changes.
 
 ## Overview

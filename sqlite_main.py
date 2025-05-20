@@ -4,7 +4,7 @@ from zoneinfo import ZoneInfo
 from loguru import logger
 
 from db_utils import get_session
-from new_database import Base, Student
+from old_database import Base, Student
 
 
 def create_old_database(conn_string):
@@ -21,7 +21,7 @@ def create_old_database(conn_string):
                 email="john.doe@example.com",
                 date_of_birth=datetime(1990, 1, 15),
                 grade_level=10,
-                marks=95.5,
+                gpa=2.7,
             ),
             Student(
                 student_id="STU002",
@@ -30,7 +30,7 @@ def create_old_database(conn_string):
                 email="jane.smith@example.com",
                 date_of_birth=datetime(1992, 5, 20),
                 grade_level=11,
-                marks=88.0,
+                gpa=3.5,
             ),
         ]
 

@@ -20,24 +20,22 @@ async def add_data_to_database(engine: AsyncEngine) -> None:
 
             sample_records = [
                 {
-                    "student_id": "STU001",
-                    "first_name": "John",
-                    "last_name": "Doe",
-                    "email": "john.doe@example.com",
-                    "date_of_birth": datetime(1990, 1, 15),
+                    "student_id": "STU003", 
+                    "first_name": "Michael",
+                    "last_name": "Johnson",
+                    "email": "michael.johnson@example.com",
+                    "date_of_birth": datetime(1991, 8, 12),
                     "grade_level": 10,
-                    "gpa": 3.8,
-                    "marks": 95.5,
+                    "marks": 92.5,
                 },
                 {
-                    "student_id": "STU002",
-                    "first_name": "Jane",
-                    "last_name": "Smith",
-                    "email": "jane.smith@example.com",
-                    "date_of_birth": datetime(1992, 5, 20),
+                    "student_id": "STU004",
+                    "first_name": "Emily",
+                    "last_name": "Brown",
+                    "email": "emily.brown@example.com", 
+                    "date_of_birth": datetime(1993, 3, 25),
                     "grade_level": 11,
-                    "gpa": 3.5,
-                    "marks": 88.0,
+                    "marks": 89.5,
                 },
             ]
 
@@ -57,7 +55,6 @@ async def add_data_to_database(engine: AsyncEngine) -> None:
                         email=record["email"],
                         date_of_birth=record["date_of_birth"],
                         grade_level=record["grade_level"],
-                        gpa=record["gpa"],
                         marks=record["marks"],
                     )
                     session.add(new_record)
@@ -106,11 +103,11 @@ async def run_db_migrations(connection_string: str, debug_mode: bool) -> None:
         logger.error(f"Error checking/creating alembic version: {e}")
         raise
 
-    # engine = create_async_engine(connection_string, echo=debug_mode)
-    # async with engine.begin() as conn:
-    #     await conn.run_sync(run_upgrade, config)
+    engine = create_async_engine(connection_string, echo=debug_mode)
+    async with engine.begin() as conn:
+        await conn.run_sync(run_upgrade, config)
 
-    # await add_data_to_database(engine)
+    await add_data_to_database(engine)
 
 
 if __name__ == "__main__":
