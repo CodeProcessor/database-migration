@@ -95,7 +95,13 @@ async def run_db_migrations(connection_string: str, debug_mode: bool) -> None:
             has_table = await conn.run_sync(
                 lambda sync_conn: sync_conn.dialect.has_table(sync_conn, "alembic_version")
             )
-            if not has_table:
+            # Check if other tables exist
+            has_other_tables = await conn.run_sync(
+                lambda sync_conn: bool(sync_conn.dialect.get_table_names(sync_conn))
+            )
+
+            # If alembic_version table doesn't exist and other tables exist, create and stamp to head
+            if not has_table and has_other_tables:
                 logger.info("Alembic version table not found - creating and stamping to head")
                 # Create alembic_version table and stamp it to head
                 await conn.run_sync(lambda sync_conn: stamp(config, "3b5fa40dd45d"))
